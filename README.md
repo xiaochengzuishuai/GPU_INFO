@@ -4,7 +4,20 @@
 
 一份**自包含、可离线打开**的显卡选型参考。三个 HTML 页面，双击即用，不需要联网、不需要装任何东西。
 
+许可证：**[CC BY-NC-ND 4.0](LICENSE)** —— 可原样转载并须署名，**禁止改动后发布，禁止商用**。
+
 ---
+
+## 在线访问
+
+| 页面 | 地址 |
+|---|---|
+| 总入口（落地页） | https://xiaochengzuishuai.github.io/GPU_INFO/ |
+| 性能天梯图 | https://xiaochengzuishuai.github.io/GPU_INFO/gpu-ladder.html |
+| 全型号品牌数据库 | https://xiaochengzuishuai.github.io/GPU_INFO/gpu-database.html |
+| 选型总览（合并版） | https://xiaochengzuishuai.github.io/GPU_INFO/gpu-overview.html |
+
+> 也可以下载本仓库的 HTML 文件离线使用——页面自包含，断网照常工作。
 
 ## 这是什么
 
@@ -54,13 +67,32 @@
 
 ## 校验文件完整性
 
-本仓库每个发布版本都附 `CHECKSUMS.txt`。想确认下载到的文件有没有被改过：
+每个发布版本都附 `CHECKSUMS.txt`（SHA256 清单），并且都打了**签名标签**。校验要**两步都做**：
+
+### 第一步：验标签签名 —— 证明这个版本确实出自作者
 
 ```bash
-shasum -a 256 gpu-database.html
+git verify-tag v1.3
 ```
 
-把输出和 `CHECKSUMS.txt` 里的对应行比对，一致说明文件未被改动。
+看到 `Good "git" signature` 即通过。不想用命令行的话，GitHub 的 **Tags** 页面上该标签会直接显示 **Verified** 徽章。
+
+### 第二步：在对应标签上校验哈希 —— 证明文件没被改过
+
+```bash
+git checkout v1.3
+shasum -a 256 -c CHECKSUMS.txt
+```
+
+三行全部 `OK` 即通过。
+
+### 为什么必须两步
+
+**哈希清单本身不自证。** 如果有人改了 HTML、再把 `CHECKSUMS.txt` 一起重新生成，清单依然"自洽"——只跑第二步照样全绿。能把哈希钉死在某次发布上的，只有**签名标签**：标签里的提交哈希由作者的私钥签发，改不动。
+
+只做第二步，等于信任"清单是真的"；做完第一步，才是**验证**了这件事。
+
+> 顺带说明：本仓库 `.gitattributes` 里写了 `* -text`，关闭了 git 的换行转换。这是为了让任何平台上克隆得到的文件都**逐字节相同**——否则 Windows 克隆会得到 CRLF、Linux 会得到 LF，哈希必然对不上，这套校验也就没意义了。
 
 ## 数据来源与口径
 
@@ -106,6 +138,8 @@ shasum -a 256 gpu-database.html
 - **不可以** 用于商业用途
 - **必须** 保留署名与本许可声明
 
+> 本仓库页面右上角**不会**出现 GitHub 自动生成的许可证徽章。这不是配置遗漏：GitHub 的许可证识别器只收录了 47 种模板，其中 CC 系列仅有 `CC BY 4.0`、`CC BY-SA 4.0` 和 `CC0`，**不包含 CC BY-NC-ND**（NC 与 ND 不符合"开放"定义，故被有意排除）。徽章只是元数据展示，不影响本许可的法律效力——完整条款见 [`LICENSE`](LICENSE)。
+
 ---
 
 <a name="english"></a>
@@ -113,6 +147,19 @@ shasum -a 256 gpu-database.html
 # English
 
 A **self-contained, offline-capable** GPU selection reference. Three HTML pages — double-click and use. No internet, no installs.
+
+License: **[CC BY-NC-ND 4.0](LICENSE)** — redistribution in verbatim form is allowed with attribution; **modified redistribution and commercial use are not**.
+
+## Live site
+
+| Page | URL |
+|---|---|
+| Entry point (landing) | https://xiaochengzuishuai.github.io/GPU_INFO/ |
+| Performance ladder | https://xiaochengzuishuai.github.io/GPU_INFO/gpu-ladder.html |
+| Full model & brand database | https://xiaochengzuishuai.github.io/GPU_INFO/gpu-database.html |
+| Combined view | https://xiaochengzuishuai.github.io/GPU_INFO/gpu-overview.html |
+
+> You can also download the HTML files and use them offline — each page is self-contained and works without a network connection.
 
 ## What's inside
 
@@ -162,13 +209,32 @@ To publish it, just drop the file into any web directory. No Node, Python, or an
 
 ## Verifying file integrity
 
-Every release includes `CHECKSUMS.txt`. To confirm the file you downloaded hasn't been altered:
+Every release ships a `CHECKSUMS.txt` (SHA256 list) **and** a signed tag. Verification takes **two steps**:
+
+### Step 1 — verify the tag signature (proves the release came from the author)
 
 ```bash
-shasum -a 256 gpu-database.html
+git verify-tag v1.3
 ```
 
-Compare the output against the matching line in `CHECKSUMS.txt`. A match means the file is unmodified.
+`Good "git" signature` means it passed. No command line? The **Tags** page on GitHub shows a **Verified** badge on the tag.
+
+### Step 2 — check the hashes at that tag (proves the files weren't altered)
+
+```bash
+git checkout v1.3
+shasum -a 256 -c CHECKSUMS.txt
+```
+
+Three `OK` lines means it passed.
+
+### Why both steps
+
+**A checksum list does not authenticate itself.** If someone modified the HTML files and regenerated `CHECKSUMS.txt` to match, the list would still be internally consistent — step 2 alone would pass. What pins the hashes to a specific release is the **signed tag**: the commit hash inside it is signed with the author's private key and cannot be forged.
+
+Step 2 alone means trusting that the list is genuine. Adding step 1 means *verifying* it.
+
+> Note: this repository sets `* -text` in `.gitattributes`, disabling git's line-ending conversion. That guarantees every platform checks out **byte-identical** files — otherwise a Windows clone would produce CRLF and a Linux clone LF, the hashes would never match, and this whole verification scheme would be pointless.
 
 ## Data sources & methodology
 
@@ -213,3 +279,5 @@ In short:
 - **You may not** publish modified versions (altered data, removed attribution, recoloured, etc.)
 - **You may not** use it commercially
 - **You must** keep the attribution and this license notice
+
+> This repository will **not** show an auto-generated license badge in GitHub's sidebar. That is not a misconfiguration: GitHub's license detector bundles only 47 templates, and the Creative Commons ones it carries are `CC BY 4.0`, `CC BY-SA 4.0` and `CC0` — **CC BY-NC-ND is not among them** (NC and ND don't meet the open-definition criteria, so it is deliberately excluded). The badge is display metadata only and has no bearing on the license's legal effect — the full terms are in [`LICENSE`](LICENSE).
