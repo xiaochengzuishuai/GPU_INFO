@@ -1,0 +1,18 @@
+# 换行一律不转换 —— 仓库里的字节必须等于发布时的字节。
+#
+# 为什么必须关掉：CHECKSUMS.txt 里的哈希是按文件的原始字节算出来的。而 git 在
+# core.autocrlf=true（Windows 上的常见默认值）时会在提交与检出两个方向改写换行，
+# 于是：
+#
+#   1. 别人克隆后算出的哈希与本清单对不上，「校验文件完整性」直接失效 ——
+#      在 Linux/macOS 上克隆 HTML 会得到 LF 版本，哈希必然不同。
+#   2. CHECKSUMS.txt 自己若被转成 CRLF，每行文件名尾部会多出一个 \r，
+#      `shasum -a 256 -c` 会报 No such file or directory。
+#
+# 关掉转换后，任何平台上克隆得到的都是逐字节相同的文件，哈希恒等。
+* -text
+
+# 下面这些是纯文本，只是关掉换行转换；diff 仍按行比对，便于审阅改动
+*.md diff
+LICENSE diff
+.gitignore diff

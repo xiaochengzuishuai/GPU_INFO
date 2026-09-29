@@ -1,0 +1,13 @@
+# 只允许下列文件进入仓库，其余一律忽略。
+#
+# 这是有意的白名单而不是补漏式黑名单：万一哪天误把私钥、数据表 xlsx 或构建脚本
+# 丢进了这个目录，git 也会直接忽略，不会把不该公开的东西提交上去。
+/*
+!.gitignore
+!.gitattributes
+!README.md
+!LICENSE
+!CHECKSUMS.txt
+!gpu-ladder.html
+!gpu-database.html
+!gpu-overview.html
