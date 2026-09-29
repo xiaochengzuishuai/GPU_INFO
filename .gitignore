@@ -5,9 +5,11 @@
 /*
 !.gitignore
 !.gitattributes
+!.nojekyll
 !README.md
 !LICENSE
 !CHECKSUMS.txt
+!index.html
 !gpu-ladder.html
 !gpu-database.html
 !gpu-overview.html

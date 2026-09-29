@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>显卡选型参考 · GPU Selection Reference</title>
+<meta name="description" content="91 款显卡的相对性能天梯，以及 91 款芯片 × 24 品牌的 1962 条在售 SKU 参数、供电与风险。自包含页面，双击即用。">
+<style>
+:root{
+  --font:system-ui,-apple-system,"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;
+  color-scheme:light;
+  --surface-1:#fcfcfb; --page:#f9f9f7; --raise:#ffffff;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
+  --nv:#2a78d6; --amd:#eb6834; --intel:#1baf7a;
+  --hover:rgba(11,11,11,.045);
+}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){
+  color-scheme:dark;
+  --surface-1:#1a1a19; --page:#0d0d0d; --raise:#2f2f2c;
+  --text-primary:#fff; --text-secondary:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+  --nv:#3987e5; --amd:#d95926; --intel:#199e70;
+  --hover:rgba(255,255,255,.06);
+}}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--page);color:var(--text-primary);font-family:var(--font);line-height:1.6;font-size:15px}
+.wrap{max-width:940px;margin:0 auto;padding:44px clamp(16px,4vw,32px) 56px}
+h1{font-size:26px;margin:0 0 4px;font-weight:660;letter-spacing:-.01em}
+.en{color:var(--muted);font-size:13.5px;margin:0 0 22px}
+.lede{color:var(--text-secondary);font-size:14px;margin:0 0 26px;max-width:70ch}
+.lede b{color:var(--text-primary)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:9px;margin:0 0 26px}
+.stat{background:var(--surface-1);border:1px solid var(--border);border-radius:11px;padding:10px 13px}
+.stat .l{font-size:11.5px;color:var(--text-secondary)}
+.stat .v{font-size:19px;font-weight:650;letter-spacing:-.01em}
+.stat .v small{font-size:12px;font-weight:500;color:var(--text-secondary);margin-left:2px}
+.cards{display:grid;gap:11px}
+a.card{display:block;text-decoration:none;color:inherit;background:var(--surface-1);border:1px solid var(--border);
+  border-radius:12px;padding:15px 17px;transition:border-color .12s,background .12s}
+a.card:hover{background:var(--hover);border-color:var(--axis)}
+a.card:focus-visible{outline:2px solid var(--nv);outline-offset:2px}
+.card .t{font-size:15.5px;font-weight:640;display:flex;align-items:center;gap:9px;margin-bottom:3px}
+.card .t .n{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:5px;
+  font-size:11px;font-weight:700;color:#fff;flex:none}
+.card .t .n.n1{background:var(--nv)}
+.card .t .n.n2{background:var(--amd)}
+.card .t .n.n3{background:var(--intel)}
+.card .d{color:var(--text-secondary);font-size:13px}
+.card .f{color:var(--muted);font-size:11.5px;margin-top:7px;font-variant-numeric:tabular-nums}
+footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;line-height:1.8}
+footer b{color:var(--text-secondary)}
+footer code{font:11.5px/1 ui-monospace,Consolas,monospace;background:var(--hover);padding:2px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>显卡选型参考</h1>
+  <p class="en">GPU Selection Reference</p>
+
+  <p class="lede">
+    三个<b>自包含</b>的交互页面——双击即用，不需要联网、不需要装任何东西，断网也能正常打开。
+    数据来源与口径说明写在每个页面的底部；<b>本页不含价格</b>，价格波动太快，任何静态价格表都会迅速过时。
+  </p>
+
+  <div class="stats">
+    <div class="stat"><div class="l">显卡型号</div><div class="v">91<small>款</small></div></div>
+    <div class="stat"><div class="l">品牌 SKU</div><div class="v">1962<small>条</small></div></div>
+    <div class="stat"><div class="l">AIB 品牌</div><div class="v">24<small>家</small></div></div>
+    <div class="stat"><div class="l">世代分组</div><div class="v">13<small>档</small></div></div>
+  </div>
+
+  <div class="cards">
+    <a class="card" href="gpu-ladder.html">
+      <div class="t"><span class="n n1">1</span>性能天梯图</div>
+      <div class="d">91 款显卡的相对性能排行，一眼看出哪张比哪张强多少。</div>
+      <div class="f">基准 RTX 5070 = 100% · 可按世代 / 显存 / 年份 / 功耗筛选排序</div>
+    </a>
+    <a class="card" href="gpu-database.html">
+      <div class="t"><span class="n n2">2</span>全型号品牌数据库</div>
+      <div class="d">决定具体买哪张。91 款芯片 × 24 个品牌的 1962 条在售 SKU，含参数、供电要求、矿卡与炼丹风险。</div>
+      <div class="f">34 项对比维度 · 两阶段对比向导 · 一键复制表格</div>
+    </a>
+    <a class="card" href="gpu-overview.html">
+      <div class="t"><span class="n n3">3</span>选型总览（合并版）</div>
+      <div class="d">上面两个合并成一页，天梯与数据库数据互通，点击可互相跳转，适合来回对照。</div>
+      <div class="f">含天梯独有的「浮动跑分」字段</div>
+    </a>
+  </div>
+
+  <footer>
+    <b>数据口径</b>：<b>尺寸</b>为按芯片功耗推导的区间值（约 87% 落在 ±10mm 内），装机前请实测机箱限长；
+    <b>散热方案 / 用料</b>是从各系列描述解析的结构化字段，非逐卡实测；<b>矿卡与炼丹卡概率</b>为型号级评估，非逐卡检测。
+    数据截止 2026 年 9 月，以厂商官网与电商实时信息为准。<br>
+    <b>许可</b>：CC BY-NC-ND 4.0 —— 可原样转载并须署名，<b>禁止改动后发布，禁止商用</b>。详见仓库内 <code>LICENSE</code>。<br>
+    <b>完整性校验</b>：各版本附 <code>CHECKSUMS.txt</code>，可用 <code>shasum -a 256 -c CHECKSUMS.txt</code> 核对文件是否被改动过。
+  </footer>
+
+</div>
+</body>
+</html>
