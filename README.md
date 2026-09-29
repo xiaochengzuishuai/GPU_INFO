@@ -67,7 +67,9 @@
 
 ## 校验文件完整性
 
-每个发布版本都附 `CHECKSUMS.txt`（SHA256 清单），并且都打了**签名标签**。校验要**两步都做**：
+每个发布版本都附 `CHECKSUMS.txt`（SHA256 清单），并且都打了**签名标签**。校验要**两步都做**。
+
+> 下面的 `v1.3` 只是示例，**换成你要校验的那个版本号**——最新版本见仓库的 **Tags** 页面（签名标签会显示 Verified 徽章）。
 
 ### 第一步：验标签签名 —— 证明这个版本确实出自作者
 
@@ -209,7 +211,9 @@ To publish it, just drop the file into any web directory. No Node, Python, or an
 
 ## Verifying file integrity
 
-Every release ships a `CHECKSUMS.txt` (SHA256 list) **and** a signed tag. Verification takes **two steps**:
+Every release ships a `CHECKSUMS.txt` (SHA256 list) **and** a signed tag. Verification takes **two steps**.
+
+> The `v1.3` below is only an example — **substitute the version you want to check**. See the repository's **Tags** page for the latest (signed tags carry a Verified badge).
 
 ### Step 1 — verify the tag signature (proves the release came from the author)
 
